@@ -48,6 +48,34 @@ o ipython é um terminal python mais inteligente com algumas facilidades
 
 COMANDOS:  (Ctrl+C para o servidor da aplicação para ser reiniciado no terminal)
 ls (Lista o conteúdo do diretório atual)
+
 export FLASK_APP=app.py (Exporta uma variável de ambiente chamada FLASK_APP apontando para o arquivo onde está a aplicação flask)
-flash shell (Abre um terminal do ipython e dentro temos o acesso ao app, onde as alterações dentro do app não será salvo, é apenas um terminal interativo para explorar e testar possibilidades do flask)
+
+flask shell (Abre um terminal do ipython, dentro temos o acesso ao app, onde as alterações dentro do app não serão salvas,
+é apenas um terminal interativo para explorar e testar possibilidades do flask, testes de API e testes de retorno)
+
+1º '/user/David/' ou nesse caso '/profile/David/'
+2º app.url_map
+app.url_map (Mostra o mapa de regras, que aparece quando um usuário acessa por exemplo o '/user/David/'(ou nesse caso '/profile/David/'),
+esse mapa é uma lista de regras com o url acessado, quais os métodos http que ele aceita
+(por padrão o GET e o HEAD E OPTIONS metódos http de controle usado pelo navegador e clientes e qual a função que está apontando ->user))
+além disso o flask possui uma rota padrão para arquivos estáticos
+
+Podemos testar as rotas sem precisar do navegador:
+1º client = app.test_client()
+2º client
+client = app.test_client() (Retorna uma instância da classe FlaskClient)
+
+O client é como se fosse um navegador que funciona somente no terminal, esse navegador expõe vários métodos  para cada um dos métodos http
+que podem ser vistos com client.
+exemplos: client.get, client.put, client.post, client.delete, client.patch, client.head, client.options, etc...
+
+client.get (Chama uma url e vizualiza o seu retorno)
+1º client.get('/profile/David/')  200 OK
+2º client.get('/profile/David') 308 REDIRECT
+3º para seguir o REDIRECT client.get('/profile/David', follow_redirects=True) 200 OK
+
+.status (Mostra o status de uma url ex: client.get('/profile/David/').status
+.headers (Mostra os headers http na url que foram trafegados ex: client.get('/profile/David/').headers
+.data (Mostra os dados ex: client.get('/profile/David/').data)
 '''
